@@ -1,21 +1,23 @@
-import { join } from 'node:path';
-import { rm } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { createReadStream, createWriteStream } from 'node:fs';
 import { createGzip } from 'node:zlib';
+import { fileURLToPath } from 'node:url';
 
 const compress = async () => {
-    const basePath = './src/zip/files';
+    const filePath = fileURLToPath(import.meta.url);
+    const dirPath = dirname(filePath);
+
+    const filesFolder = join(dirPath, 'files');
     const fileToCompress = 'fileToCompress.txt';
     const fileCompressed = 'archive.gz';
 
     try {
         await pipeline(
-          createReadStream(join(basePath, fileToCompress)),
+          createReadStream(join(filesFolder, fileToCompress)),
           createGzip(),
-          createWriteStream(join(basePath, fileCompressed)),
+          createWriteStream(join(filesFolder, fileCompressed)),
         );
-        await rm(join(basePath, fileToCompress));
       } catch (err) {
         console.error(err);
       }

@@ -1,5 +1,6 @@
 import { Transform } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
+import os from 'node:os'
 
 const transform = async () => {
     const readableData = process.stdin;
@@ -9,7 +10,7 @@ const transform = async () => {
         transform(chunk, enc, cb) {
             const chunkStringified = chunk.toString().trim();
             const reversedChunk = chunkStringified.split('').reverse().join('');
-            this.push(reversedChunk + '\n');
+            this.push(reversedChunk + os.EOL);
             cb();
         }
     })
