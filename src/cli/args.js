@@ -1,13 +1,13 @@
 const parseArgs = () => {
     const cliArgs = process.argv;
-    const taskAnswer = [];
+    const argsWithValues = [];
     
     cliArgs.map((v, i, arr) => {
         if ((i > 1) && (i % 2 === 0)) {
-            taskAnswer.push(`${arr[i].slice(2)} is ${arr[i + 1]}`)
+            argsWithValues.push(`${arr[i].slice(2)} is ${arr[i + 1]}`)
         }
     })
-    console.log(taskAnswer.join(', '));
+    console.log(argsWithValues.join(', '));
 
 };
 

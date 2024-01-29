@@ -1,13 +1,13 @@
 const parseEnv = () => {
-    const envVariables = process.env;
-    const taskAnswer = [];
+    const userEnvObj = process.env;
+    const envVariablesWithValues = [];
 
-    for (const variable in envVariables) {
-        if (variable.includes('RSS_')) {
-            taskAnswer.push(`${variable}=${envVariables[variable]}`);
+    for (const property in userEnvObj) {
+        if (property.includes('RSS_')) {
+            envVariablesWithValues.push(`${property}=${userEnvObj[property]}`);
         }
     }
-    console.log(taskAnswer.join('; '))
+    console.log(envVariablesWithValues.join('; '))
 };
 
 parseEnv();
