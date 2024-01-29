@@ -1,12 +1,15 @@
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { readdir } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 
 const list = async () => {
-    const basePath = './src/fs';
-    const folderWithFiles = join(basePath, 'files');
+    const filePath = fileURLToPath(import.meta.url);
+    const dirPath = dirname(filePath);
+
+    const filesFolder = join(dirPath, 'files');
 
     try {
-        const files = await readdir(folderWithFiles);
+        const files = await readdir(filesFolder);
         console.log(`The folder contains next files:`);
         console.log('----------------------------------');
         for (const file of files) {
